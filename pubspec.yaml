@@ -22,6 +22,9 @@ dependencies:
   url_launcher: ^6.3.0
   data_table_2: ^2.5.15
   json_annotation: ^4.9.0
+  intl: any
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
@@ -30,6 +33,7 @@ dev_dependencies:
   flutter_lints: ^4.0.0
 
 flutter:
+  generate: true
   uses-material-design: true
   assets:
     - .env

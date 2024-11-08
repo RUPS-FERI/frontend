@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'app.config.dart';
 
 class CryptoLensApp extends StatelessWidget {
@@ -8,8 +8,10 @@ class CryptoLensApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       routerConfig: AppConfig.router,
-      title: 'CryptoLens',
+      onGenerateTitle: (context) => AppLocalizations.of(context)!.coinViewTitle,
     );
   }
 }
