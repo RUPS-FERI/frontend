@@ -1,17 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'FileMimeTypeEntity.dart';
+part of '../FileExtensionEntity.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-FileMimeTypeEntity _$FileMimeTypeEntityFromJson(Map<String, dynamic> json) =>
-    FileMimeTypeEntity(
+FileExtensionEntity _$FileExtensionEntityFromJson(Map<String, dynamic> json) =>
+    FileExtensionEntity(
       type: json['type'] as String,
     );
 
-Map<String, dynamic> _$FileMimeTypeEntityToJson(FileMimeTypeEntity instance) =>
+Map<String, dynamic> _$FileExtensionEntityToJson(
+        FileExtensionEntity instance) =>
     <String, dynamic>{
       'type': instance.type,
     };

@@ -1,7 +1,7 @@
 import 'package:frontend/_common/utils/serzializable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'FileExtensionEntity.g.dart';
+part 'generators/FileExtensionEntity.g.dart';
 
 
 @JsonSerializable()

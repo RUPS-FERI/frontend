@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'FileEntity.dart';
+part of '../FileEntity.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

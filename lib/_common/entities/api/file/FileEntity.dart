@@ -3,7 +3,7 @@ import 'package:frontend/_common/entities/api/file/FileMimeTypeEntity.dart';
 import 'package:frontend/_common/utils/serzializable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'FileEntity.g.dart';
+part 'generators/FileEntity.g.dart';
 
 @JsonSerializable()
 class FileEntity implements Serializable {
