@@ -1,4 +1,7 @@
 {
   "appTitle": "CryptoLens",
-  "coinViewTitle": "Coin List"
+  "coinViewTitle": "Coin List",
+  "searchBarHint": "Search...",
+  "filters": "Filters",
+  "settings": "Settings"
 }
