@@ -14,7 +14,6 @@ class CoinsView extends StatelessWidget {
         background: Color(0xFFF6F6F6),
         child: CoinsSideBar(),
       ),
-
       rightPane: Pane(
         margin: EdgeInsets.all(30.0),
         child: Column(
