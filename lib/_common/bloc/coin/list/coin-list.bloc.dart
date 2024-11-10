@@ -25,7 +25,7 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
         await CoinListService.getCoins(
       page: event.page,
       search: search,
-      limit: 10,
+      limit: 100,
     );
     emit(CoinListLoaded(data: coinListResponse, nameSearch: search));
   }
