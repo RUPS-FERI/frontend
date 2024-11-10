@@ -12,7 +12,7 @@ abstract class CoinListService {
   }) async {
     final coinJson = await ApiClientService.get(endpoint: [
       'api',
-      'coins'
+      'coins',
     ], params: {
       'page': '$page',
       'limit': '$limit',
@@ -20,7 +20,7 @@ abstract class CoinListService {
     });
 
     final List<CoinEntity> coins = fromJsonAsList<CoinEntity>(
-      coinJson as List,
+      coinJson['coins'],
       CoinEntity.fromJson,
     );
 

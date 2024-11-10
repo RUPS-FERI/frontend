@@ -12,10 +12,8 @@ FileEntity _$FileEntityFromJson(Map<String, dynamic> json) => FileEntity(
       data: json['data'] as String,
       extension: FileExtensionEntity.fromJson(
           json['extension'] as Map<String, dynamic>),
-      mimeType:
-          FileMimeTypeEntity.fromJson(json['mimeType'] as Map<String, dynamic>),
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      updatedAt: DateTime.parse(json['updatedAt'] as String),
+      createdAt: DateTime.parse(json['created_at'] as String),
+      updatedAt: DateTime.parse(json['updated_at'] as String),
     );
 
 Map<String, dynamic> _$FileEntityToJson(FileEntity instance) =>
@@ -23,8 +21,7 @@ Map<String, dynamic> _$FileEntityToJson(FileEntity instance) =>
       'name': instance.name,
       'size': instance.size,
       'data': instance.data,
-      'mimeType': instance.mimeType,
       'extension': instance.extension,
-      'createdAt': instance.createdAt.toIso8601String(),
-      'updatedAt': instance.updatedAt.toIso8601String(),
+      'created_at': instance.createdAt.toIso8601String(),
+      'updated_at': instance.updatedAt.toIso8601String(),
     };

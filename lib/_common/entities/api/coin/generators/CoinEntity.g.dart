@@ -12,9 +12,6 @@ CoinEntity _$CoinEntityFromJson(Map<String, dynamic> json) => CoinEntity(
       slug: json['slug'] as String,
       content:
           CoinContentEntity.fromJson(json['content'] as Map<String, dynamic>),
-      prices: (json['prices'] as List<dynamic>)
-          .map((e) => CoinPriceEntity.fromJson(e as Map<String, dynamic>))
-          .toList(),
     );
 
 Map<String, dynamic> _$CoinEntityToJson(CoinEntity instance) =>
@@ -23,5 +20,4 @@ Map<String, dynamic> _$CoinEntityToJson(CoinEntity instance) =>
       'code': instance.code,
       'slug': instance.slug,
       'content': instance.content,
-      'prices': instance.prices,
     };

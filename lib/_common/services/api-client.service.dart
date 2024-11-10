@@ -11,10 +11,11 @@ abstract class ApiClientService {
 
   static String get _apiBaseUrl => '$_apiUrl:$_apiPort';
 
-  static Future<Map<String, dynamic>> get(
-      {required List<dynamic> endpoint,
-      Map<String, String>? headers,
-      Map<String, dynamic>? params}) async {
+  static Future<Map<String, dynamic>> get({
+    required List<dynamic> endpoint,
+    Map<String, String>? headers,
+    Map<String, dynamic>? params,
+  }) async {
     Uri uri = Uri.http(_apiBaseUrl, '/${endpoint.join('/')}', params);
     final response = await http.get(uri, headers: headers);
     if (response.statusCode != HttpStatus.ok.code) {

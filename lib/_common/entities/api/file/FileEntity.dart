@@ -10,7 +10,6 @@ class FileEntity implements Serializable {
   final String name;
   final int size;
   final String data;
-  final FileMimeTypeEntity mimeType;
   final FileExtensionEntity extension;
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -20,12 +19,12 @@ class FileEntity implements Serializable {
     required this.size,
     required this.data,
     required this.extension,
-    required this.mimeType,
     required this.createdAt,
     required this.updatedAt,
   });
 
-  factory FileEntity.fromJson(Map<String, dynamic> json) => _$FileEntityFromJson(json);
+  factory FileEntity.fromJson(Map<String, dynamic> json) =>
+      _$FileEntityFromJson(json);
 
   @override
   Map<String, dynamic> toJson() => _$FileEntityToJson(this);

@@ -9,14 +9,14 @@ part of '../LinkEntity.dart';
 LinkEntity _$LinkEntityFromJson(Map<String, dynamic> json) => LinkEntity(
       name: json['name'] as String,
       link: json['link'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      updatedAt: DateTime.parse(json['updatedAt'] as String),
+      createdAt: DateTime.parse(json['created_at'] as String),
+      updatedAt: DateTime.parse(json['updated_at'] as String),
     );
 
 Map<String, dynamic> _$LinkEntityToJson(LinkEntity instance) =>
     <String, dynamic>{
       'name': instance.name,
       'link': instance.link,
-      'createdAt': instance.createdAt.toIso8601String(),
-      'updatedAt': instance.updatedAt.toIso8601String(),
+      'created_at': instance.createdAt.toIso8601String(),
+      'updated_at': instance.updatedAt.toIso8601String(),
     };

@@ -8,11 +8,11 @@ part of '../FileExtensionEntity.dart';
 
 FileExtensionEntity _$FileExtensionEntityFromJson(Map<String, dynamic> json) =>
     FileExtensionEntity(
-      type: json['type'] as String,
+      extension: json['extension'] as String,
     );
 
 Map<String, dynamic> _$FileExtensionEntityToJson(
         FileExtensionEntity instance) =>
     <String, dynamic>{
-      'type': instance.type,
+      'extension': instance.extension,
     };
