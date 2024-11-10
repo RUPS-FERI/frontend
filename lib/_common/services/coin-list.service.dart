@@ -15,7 +15,7 @@ abstract class CoinListService {
       'coins',
     ], params: {
       'page': '$page',
-      'limit': '$limit',
+      'size': '$limit',
       'search': search,
     });
 
