@@ -31,6 +31,9 @@ class CoinTable extends StatelessWidget {
           builder: (context, listState) {
             if (listState is CoinListLoaded) {
               final List<CoinEntity> filteredCoins = listState.data.items;
+              if (filteredCoins.length == 0) {
+                return const Center(child: Text('No Coins'));
+              }
               return DataTable2(
                 columns: const [
                   DataColumn2(label: Text('Icon')),
