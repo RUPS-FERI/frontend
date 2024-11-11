@@ -6,6 +6,7 @@ import 'package:frontend/_common/entities/api/coin/CoinEntity.dart';
 import '../../../_common/bloc/coin/list/coin-list.bloc.dart';
 import '../../../_common/bloc/coin/list/coin-list.state.dart';
 import '../../../_common/utils/color-constants.util.dart';
+import '../../../_common/widgets/pagination.widget.dart';
 
 class CoinTable extends StatelessWidget {
   final Color color;
@@ -18,6 +19,7 @@ class CoinTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final CoinListBloc coinListBloc = context.read<CoinListBloc>();
+    int currentPage = 1;
 
     return Container(
       margin: margin,
@@ -31,19 +33,43 @@ class CoinTable extends StatelessWidget {
           builder: (context, listState) {
             if (listState is CoinListLoaded) {
               final List<CoinEntity> filteredCoins = listState.data.items;
-              return DataTable2(
-                columns: const [
-                  DataColumn2(label: Text('Icon')),
-                  DataColumn2(label: Text('Name')),
-                  DataColumn2(label: Text('Code'))
+              
+              return Flex(
+                direction: Axis.vertical,
+                children: <Widget>[
+                  Expanded(
+                    flex: 10,
+                    child: 
+                      DataTable2(
+                      columns: const [
+                        DataColumn2(label: Text('Icon')),
+                        DataColumn2(label: Text('Name')),
+                        DataColumn2(label: Text('Code')),
+                      ],
+                      rows: filteredCoins
+                          .map((coin) => DataRow2(cells: [
+                                DataCell(Image.memory(coin.imageBytes)),
+                                DataCell(Text(coin.name)),
+                                DataCell(Text(coin.code)),
+                              ]))
+                          .toList(),
+                      ),
+                  ),
+                  
+                  Expanded(
+                    flex: 1,
+                    child: 
+                      Pagination(
+                        paginationData: listState.data,
+                        onPageSelected: (newPage) {
+                          // Handle page change
+                          currentPage = newPage;
+                          coinListBloc.loadCoins(currentPage);
+                        },
+                      ),
+                  ),
+                  
                 ],
-                rows: filteredCoins
-                    .map((coin) => DataRow2(cells: [
-                          DataCell(Image.memory(coin.imageBytes)),
-                          DataCell(Text(coin.name)),
-                          DataCell(Text(coin.code)),
-                        ]))
-                    .toList(),
               );
             }
             return const Center(
