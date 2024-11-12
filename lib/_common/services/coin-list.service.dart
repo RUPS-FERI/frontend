@@ -35,4 +35,14 @@ abstract class CoinListService {
       items: coins,
     );
   }
+
+  static Future<CoinEntity> getCoinById(String id) async {
+    final coinJson = await ApiClientService.get(endpoint: [
+      'api',
+      'coins',
+      id,
+    ]);
+
+    return CoinEntity.fromJson(coinJson);
+  }
 }

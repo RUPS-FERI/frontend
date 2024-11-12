@@ -9,11 +9,17 @@ import '../../../entities/pagination-data.model.dart';
 class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
   CoinListBloc() : super(const CoinListInitialState()) {
     on<LoadCoinsEvent>(_loadCoins);
+    on<LoadCoinByIdEvent>(_loadCoinById);
     on<SearchCoinEvent>(_searchEvent);
   }
 
   void loadCoins(int page, {String nameSearch = ''}) {
     add(LoadCoinsEvent(page: page, nameSearch: nameSearch.trim()));
+    add(LoadCoinsEvent(page: page, nameSearch: nameSearch.trim()));
+  }
+
+  void loadCoinById(id) async {
+    add(LoadCoinByIdEvent(id: id));
   }
 
   void searchCoins(String query) {
@@ -21,7 +27,9 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
   }
 
   void _loadCoins(LoadCoinsEvent event, Emitter<CoinListState> emit) async {
-    emit(CoinListLoading());
+    emit(
+      CoinListLoading(),
+    );
     String search = event.nameSearch;
     if (search.trim().isEmpty) {
       search = state.nameSearch;
@@ -37,12 +45,29 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
 
   Future<void> _searchEvent(
       SearchCoinEvent event, Emitter<CoinListState> emit) async {
-    emit(CoinListLoading());
+    emit(
+      CoinListLoading(),
+    );
     PaginationData<CoinEntity> searchResults = await CoinListService.getCoins(
       page: 1,
       search: event.search,
       limit: 10,
     );
     emit(CoinListLoaded(data: searchResults, nameSearch: event.search));
+  }
+
+  Future<void> _loadCoinById(
+    LoadCoinByIdEvent event,
+    Emitter<CoinListState> emit,
+  ) async {
+    CoinEntity coin = await CoinListService.getCoinById(event.id);
+    emit(
+      CoinListLoaded(
+        data: PaginationData(
+          config: const PaginationConfig.noData(),
+          items: [coin],
+        ),
+      ),
+    );
   }
 }

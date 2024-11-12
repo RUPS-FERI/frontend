@@ -7,6 +7,7 @@ import 'package:frontend/_common/bloc/coin/filters/coin-filters.state.dart';
 import 'package:frontend/_common/bloc/coin/table_settings/coin-table-settings.bloc.dart';
 import 'package:frontend/_common/bloc/coin/table_settings/coin-table-settings.state.dart';
 import 'package:frontend/_common/entities/api/coin/CoinEntity.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../_common/bloc/coin/list/coin-list.bloc.dart';
 import '../../../_common/bloc/coin/list/coin-list.state.dart';
@@ -75,7 +76,13 @@ class CoinTable extends StatelessWidget {
                                                 (col) => col.name == column)
                                             .builder(item)))
                                     .toList();
-                                return DataRow2(cells: itemDataCells);
+                                return DataRow2(
+                                  cells: itemDataCells,
+                                  onTap: () => context.goNamed(
+                                    'coinDetail',
+                                    pathParameters: {'id': item.id},
+                                  ),
+                                );
                               }
 
                               List<DataColumn2> columns() =>
@@ -84,16 +91,21 @@ class CoinTable extends StatelessWidget {
                                           DataColumn2(label: Text(option)))
                                       .toList();
 
-                              List<DataRow2> dataRows(List<CoinEntity> items) => items
-                                  .map(getItemDataRow)
-                                  .toList();
+                              List<DataRow2> dataRows(List<CoinEntity> items) =>
+                                  items.map(getItemDataRow).toList();
 
                               if (listState is CoinListLoaded) {
-                                final List<CoinEntity> filteredCoins = listState.data.items.where((coin) {
-                                  for (final Filter filter in filterState.filters) {
+                                final List<CoinEntity> filteredCoins =
+                                    listState.data.items.where((coin) {
+                                  for (final Filter filter
+                                      in filterState.filters) {
                                     if (!filter.enabled) continue;
-                                    final valueFunction = CoinFiltersBloc.availableFilterProperties[filter.property!]!(coin);
-                                    if (!filter.filter.function(valueFunction, filter.params)) return false;
+                                    final valueFunction = CoinFiltersBloc
+                                            .availableFilterProperties[
+                                        filter.property!]!(coin);
+                                    if (!filter.filter
+                                        .function(valueFunction, filter.params))
+                                      return false;
                                   }
                                   return true;
                                 }).toList();

@@ -7,6 +7,7 @@ part of '../CoinEntity.dart';
 // **************************************************************************
 
 CoinEntity _$CoinEntityFromJson(Map<String, dynamic> json) => CoinEntity(
+      id: json['_id'] as String,
       name: json['name'] as String,
       code: json['code'] as String,
       slug: json['slug'] as String,
@@ -19,6 +20,7 @@ CoinEntity _$CoinEntityFromJson(Map<String, dynamic> json) => CoinEntity(
 
 Map<String, dynamic> _$CoinEntityToJson(CoinEntity instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
       'code': instance.code,
       'slug': instance.slug,

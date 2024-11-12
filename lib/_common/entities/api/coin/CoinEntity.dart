@@ -11,6 +11,7 @@ part 'generators/CoinEntity.g.dart';
 
 @JsonSerializable()
 class CoinEntity implements Serializable {
+  final String id;
   final String name;
   final String code;
   final String slug;
@@ -18,6 +19,7 @@ class CoinEntity implements Serializable {
   final List<CoinPriceEntity> prices;
 
   const CoinEntity({
+    required this.id,
     required this.name,
     required this.code,
     required this.slug,
