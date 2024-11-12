@@ -56,12 +56,16 @@ class CoinTable extends StatelessWidget {
                         DataColumn2(label: Text('Icon')),
                         DataColumn2(label: Text('Name')),
                         DataColumn2(label: Text('Code')),
+                        DataColumn2(label: Text('Price')),
                       ],
                       rows: filteredCoins
                           .map((coin) => DataRow2(cells: [
                                 DataCell(Image.memory(coin.imageBytes)),
                                 DataCell(Text(coin.name)),
                                 DataCell(Text(coin.code)),
+                                DataCell(
+                                  Text(coin.lastPrice.toStringAsFixed(4)),
+                                ),
                               ]))
                           .toList(),
                     );

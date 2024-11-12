@@ -15,7 +15,8 @@ class CoinContentEntity implements Serializable {
     required this.files,
   });
 
-  factory CoinContentEntity.fromJson(Map<String, dynamic> json) => _$CoinContentEntityFromJson(json);
+  factory CoinContentEntity.fromJson(Map<String, dynamic> json) =>
+      _$CoinContentEntityFromJson(json);
 
   @override
   Map<String, dynamic> toJson() => _$CoinContentEntityToJson(this);

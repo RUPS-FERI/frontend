@@ -17,7 +17,8 @@ class CoinPriceEntity implements Serializable {
     required this.date,
   });
 
-  factory CoinPriceEntity.fromJson(Map<String, dynamic> json) => _$CoinPriceEntityFromJson(json);
+  factory CoinPriceEntity.fromJson(Map<String, dynamic> json) =>
+      _$CoinPriceEntityFromJson(json);
 
   @override
   Map<String, dynamic> toJson() => _$CoinPriceEntityToJson(this);
