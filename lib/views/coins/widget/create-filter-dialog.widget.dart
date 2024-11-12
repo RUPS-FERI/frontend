@@ -59,7 +59,7 @@ class _CoinCreateFilterDialogState extends State<CoinCreateFilterDialog> {
 
     return Dialog(
       child: Container(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(40.0),
         width: size.width * 0.5,
         height: size.width * 0.6,
         child: Column(
@@ -138,11 +138,15 @@ class _CoinCreateFilterDialogState extends State<CoinCreateFilterDialog> {
               enabled: _canCreateFilter,
               padding: const EdgeInsets.all(20.0),
               borderRadius: BorderRadius.circular(10.0),
-              onPressed: () => filtersBloc.createFilter(
+              onPressed: () {
+                filtersBloc.createFilter(
                   _filterName,
                   _selectableProperties[_selectedPropertyIndex],
                   FilterType.values[_selectedFilterIndex],
-                  filterParams),
+                  filterParams,
+                );
+                Navigator.pop(context);
+              },
             )
           ],
         ),
