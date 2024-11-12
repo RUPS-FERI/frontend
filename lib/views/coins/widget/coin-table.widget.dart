@@ -64,7 +64,7 @@ class CoinTable extends StatelessWidget {
                                 DataCell(Text(coin.name)),
                                 DataCell(Text(coin.code)),
                                 DataCell(
-                                  Text(coin.lastPrice.toStringAsFixed(4)),
+                                  Text(coin.price.toStringAsFixed(4)),
                                 ),
                               ]))
                           .toList(),

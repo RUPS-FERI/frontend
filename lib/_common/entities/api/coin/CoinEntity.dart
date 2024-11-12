@@ -37,5 +37,9 @@ class CoinEntity implements Serializable {
             .data,
       );
 
-  double get lastPrice => prices.last.price;
+  double get price => prices.last.price;
+
+  double get volume => prices.last.price;
+
+  double get marketCap => prices.last.marketCap;
 }

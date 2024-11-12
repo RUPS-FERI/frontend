@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:frontend/_common/widgets/action-button.widget.dart';
+import 'package:frontend/views/coins/widget/table-settings-dialog.widget.dart';
 
 import '../../../_common/utils/color-constants.util.dart';
-
-import '../../../_common/widgets/column-settings.widget.dart';
 
 class CoinsSideBar extends StatelessWidget {
   const CoinsSideBar({super.key});
@@ -23,13 +21,7 @@ class CoinsSideBar extends StatelessWidget {
         ),
         const Divider(color: ColorConstants.commonGray),
         Expanded(child: Container()),
-        ActionButton(
-          padding: const EdgeInsets.symmetric(vertical: 30),
-          text: AppLocalizations.of(context)!.settings,
-          onPressed: () {
-            showSettingsPopup(context);
-          }
-        )
+        const CoinTableSettingsDialog()
       ],
     );
   }

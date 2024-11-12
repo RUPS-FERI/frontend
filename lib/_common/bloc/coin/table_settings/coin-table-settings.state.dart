@@ -14,11 +14,18 @@ class CoinTableSettingsState {
     ),
     TableColumn(name: 'Name', builder: (coin) => Text(coin.name)),
     TableColumn(name: 'Code', builder: (coin) => Text(coin.code)),
+    TableColumn(name: 'Market Cap', builder: (coin) => Text(coin.code)),
     TableColumn(
       name: 'Price',
-      builder: (coin) => Text(
-        coin.prices.last.price.toStringAsFixed(4),
-      ),
+      builder: (coin) => Text(coin.price.toStringAsFixed(4)),
+    ),
+    TableColumn(
+      name: 'Market Cap',
+      builder: (coin) => Text(coin.volume.toStringAsFixed(4)),
+    ),
+    TableColumn(
+      name: 'Volume',
+      builder: (coin) => Text(coin.marketCap.toStringAsFixed(4)),
     ),
   ]);
 
