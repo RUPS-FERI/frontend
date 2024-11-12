@@ -3,5 +3,6 @@
   "coinViewTitle": "Coin List",
   "searchBarHint": "Search...",
   "filters": "Filters",
-  "settings": "Settings"
+  "settings": "Settings",
+  "noCoinsMessage": "There are no coins tho show"
 }

@@ -7,7 +7,7 @@ import 'api-client.service.dart';
 abstract class CoinListService {
   static Future<PaginationData<CoinEntity>> getCoins({
     int page = 1,
-    int limit = 25,
+    int limit = 10,
     String search = '',
   }) async {
     final coinJson = await ApiClientService.get(endpoint: [
@@ -26,6 +26,13 @@ abstract class CoinListService {
 
     final int totalAmount = coinJson['totalAmount'];
 
-    return PaginationData(page: page, totalAmount: totalAmount, items: coins);
+    return PaginationData(
+      config: PaginationConfig(
+        page: page,
+        totalAmount: totalAmount,
+        limit: limit,
+      ),
+      items: coins,
+    );
   }
 }

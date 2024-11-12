@@ -9,9 +9,8 @@ class SearchBarInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final CoinListBloc coinListBloc = context.read<CoinListBloc>();
-    coinListBloc.add(LoadCoinsEvent(page: 1));
+    coinListBloc.add(const LoadCoinsEvent(page: 1));
 
     return SearchBar(
       overlayColor: const WidgetStatePropertyAll(Colors.white),
@@ -20,10 +19,7 @@ class SearchBarInput extends StatelessWidget {
       hintText: AppLocalizations.of(context)!.searchBarHint,
       leading: const Icon(Icons.search),
       shape: WidgetStatePropertyAll(
-          RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.0)
-          )
-      ),
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0))),
       onChanged: (search) => coinListBloc.add(SearchCoinEvent(search: search)),
     );
   }

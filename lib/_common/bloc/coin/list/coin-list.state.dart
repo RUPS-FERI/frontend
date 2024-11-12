@@ -10,8 +10,7 @@ abstract class CoinListState {
 }
 
 class CoinListInitialState extends CoinListState {
-  const CoinListInitialState()
-      : super(data: const PaginationData(page: 0, totalAmount: 0, items: []));
+  const CoinListInitialState() : super(data: const PaginationData.noData());
 }
 
 class CoinListLoaded extends CoinListState {

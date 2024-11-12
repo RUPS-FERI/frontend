@@ -1,105 +1,126 @@
-import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frontend/_common/bloc/pagination/config/pagination-config.bloc.dart';
 import 'package:frontend/_common/entities/pagination-data.model.dart';
 import 'package:frontend/_common/utils/color-constants.util.dart';
 
 class Pagination extends StatelessWidget {
-  final StreamController<int> _activePageStreamController = StreamController();
-  StreamSink<int> get _activePageSink => _activePageStreamController.sink;
-  Stream<int> get _activePageStream => _activePageStreamController.stream;
-
-  final PaginationData paginationData;
-  final int limit;
-  final int shownPagesAmount;
-  late final int finalPage;
+  final int maxShownPagesAmount;
   final void Function(int) onPageSelected;
 
-  Pagination({
+  const Pagination({
     super.key,
-    required this.paginationData,
     required this.onPageSelected,
-    this.limit = 10,
-    this.shownPagesAmount = 5
-  }) {
-    finalPage = (paginationData.totalAmount / limit).ceil();
-  }
-
+    this.maxShownPagesAmount = 5,
+  });
 
   @override
   Widget build(BuildContext context) {
-    _activePageSink.add(paginationData.page);
+    final configBloc = context.read<PaginationConfigBloc>();
 
-    return StreamBuilder(
-      stream: _activePageStream,
-      builder: (context, snapshot) {
-        final int activePage = snapshot.data ?? 1;
+    return BlocBuilder<PaginationConfigBloc, PaginationConfig>(
+        bloc: configBloc,
+        builder: (context, state) {
+          if (state.totalAmount == 0) return const SizedBox();
 
-        final List<int> shownPages = _getShownPages(activePage, shownPagesAmount);
+          print(
+              "total amount : ${state.totalAmount}, limit : ${state.limit}, finalPage: ${state.finalPage}");
 
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            IconButton(
-                onPressed: () => _setActivePage(activePage - 1),
+          final shownPagesAmount = min<int>(
+            maxShownPagesAmount,
+            configBloc.state.finalPage,
+          );
+
+          List<int> getShownPages(int activePage) {
+            int middle = (shownPagesAmount / 2).floor();
+            if (activePage - shownPagesAmount < 0) {
+              return List<int>.generate(shownPagesAmount, (i) => i + 1);
+            } else if ((activePage + shownPagesAmount) >=
+                (configBloc.state.finalPage + middle)) {
+              return List<int>.generate(
+                  shownPagesAmount,
+                  (i) =>
+                      (configBloc.state.finalPage - shownPagesAmount) + i + 1);
+            }
+            return List<int>.generate(
+                shownPagesAmount, (i) => activePage - middle + i);
+          }
+
+          void setActivePage(int newActivePage) {
+            configBloc.setActivePage(newActivePage);
+            onPageSelected(newActivePage);
+          }
+
+          Widget paginationButton(int page) {
+            final isActive = configBloc.state.page == page;
+            return TextButton(
+              onPressed: () => setActivePage(page),
+              style: ButtonStyle(
+                  backgroundColor: WidgetStatePropertyAll(isActive
+                      ? ColorConstants.actionBlueColor
+                      : Colors.transparent),
+                  foregroundColor: WidgetStatePropertyAll(
+                      isActive ? Colors.white : Colors.black)),
+              child: Text(
+                '$page',
+                textScaler: TextScaler.linear(isActive ? 1.1 : 1),
+              ),
+            );
+          }
+
+          List<Widget> numberButtons(int activePage) {
+            final shownPages = getShownPages(activePage);
+            final buttons =
+                shownPages.map((page) => paginationButton(page)).toList();
+
+            if (shownPages.last != configBloc.state.finalPage) {
+              buttons.add(paginationButton(configBloc.state.finalPage));
+              buttons.insert(
+                shownPages.length,
+                const TextButton(
+                  onPressed: null,
+                  child: Text('...'),
+                ),
+              );
+            }
+
+            if (shownPages.first != 1) {
+              buttons.insert(0, paginationButton(1));
+              buttons.insert(
+                1,
+                const TextButton(
+                  onPressed: null,
+                  child: Text('...'),
+                ),
+              );
+            }
+
+            return buttons;
+          }
+
+          final int activePage = state.page;
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                onPressed: () => setActivePage(activePage - 1),
                 color: Colors.black,
-                icon: Icon(Icons.arrow_back_ios_new)
-            ),
-            ..._numberButtons(shownPages, activePage),
-            IconButton(
-                onPressed: () => _setActivePage(activePage + 1),
+                icon: const Icon(
+                  Icons.arrow_back_ios_new,
+                ),
+              ),
+              ...numberButtons(activePage),
+              IconButton(
+                onPressed: () => setActivePage(activePage + 1),
                 color: Colors.black,
-                icon: Icon(Icons.arrow_forward_ios)
-            ),
-          ],
-        );
-      }
-    );
-  }
-
-  List<int> _getShownPages(int activePage, int shownPagesAmount) {
-    int middle = (shownPagesAmount / 2).floor();
-    if (activePage - shownPagesAmount < 0) {
-      return List<int>.generate(shownPagesAmount, (i) =>  i + 1);
-    } else if ((activePage + shownPagesAmount) >= (finalPage + middle)) {
-      return List<int>.generate(shownPagesAmount, (i) => (finalPage - shownPagesAmount) + i + 1);
-    }
-    return List<int>.generate(shownPagesAmount, (i) => activePage - middle + i);
-  }
-
-  List<Widget> _numberButtons(List<int> shownPages, int activePage) {
-    List<Widget> buttons = shownPages.map((page) => _paginationButton(page, activePage == page)).toList();
-    
-    if (shownPages.last != finalPage) {
-      buttons.add(_paginationButton(finalPage, false));
-      buttons.insert(shownPages.length, TextButton(onPressed: null, child: Text('...')));
-    }
-
-    if (shownPages.first != 1) {
-      buttons.insert(0, _paginationButton(1, false));
-      buttons.insert(1, TextButton(onPressed: null, child: Text('...')));
-    }
-
-    return buttons;
-  }
-
-  void _setActivePage(int newActivePage) {
-    if (newActivePage < 1 || newActivePage > finalPage) return;
-    _activePageSink.add(newActivePage);
-    onPageSelected(newActivePage);
-  }
-
-  Widget _paginationButton(int page, bool isActive) {
-    return TextButton(
-      onPressed: () => _setActivePage(page),
-      style: ButtonStyle(
-          backgroundColor: WidgetStatePropertyAll(isActive ? ColorConstants.actionBlueColor : Colors.transparent),
-          foregroundColor: WidgetStatePropertyAll(isActive ? Colors.white : Colors.black)
-      ),
-      child: Text(
-        '$page',
-        textScaler: TextScaler.linear(isActive ? 1.1 : 1),
-      ),
-    );
+                icon: const Icon(
+                  Icons.arrow_forward_ios,
+                ),
+              ),
+            ],
+          );
+        });
   }
 }

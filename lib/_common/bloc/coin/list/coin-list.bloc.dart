@@ -35,12 +35,13 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
     emit(CoinListLoaded(data: coinListResponse, nameSearch: search));
   }
 
-  Future<void> _searchEvent(SearchCoinEvent event, Emitter<CoinListState> emit) async {
+  Future<void> _searchEvent(
+      SearchCoinEvent event, Emitter<CoinListState> emit) async {
     emit(CoinListLoading());
     PaginationData<CoinEntity> searchResults = await CoinListService.getCoins(
       page: 1,
       search: event.search,
-      limit: 100,
+      limit: 10,
     );
     emit(CoinListLoaded(data: searchResults, nameSearch: event.search));
   }
