@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/_common/widgets/layout/two-pane.layout.dart';
 import 'package:frontend/_common/widgets/pane.wdiget.dart';
 import 'package:frontend/_common/widgets/search-bar-input.widget.dart';
-import 'package:frontend/views/coins/widget/coin-table.widget.dart';
-import 'package:frontend/views/coins/widget/coins-sidebar.widget.dart';
+import 'package:frontend/views/coins/widget/table.widget.dart';
+import 'package:frontend/views/coins/widget/sidebar.widget.dart';
 
 import '../../_common/bloc/coin/list/coin-list.bloc.dart';
 
