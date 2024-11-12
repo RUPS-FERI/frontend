@@ -4,6 +4,8 @@ import 'package:frontend/_common/widgets/action-button.widget.dart';
 
 import '../../../_common/utils/color-constants.util.dart';
 
+import '../../../_common/widgets/column-settings.widget.dart';
+
 class CoinsSideBar extends StatelessWidget {
   const CoinsSideBar({super.key});
 
@@ -24,7 +26,9 @@ class CoinsSideBar extends StatelessWidget {
         ActionButton(
           padding: const EdgeInsets.symmetric(vertical: 30),
           text: AppLocalizations.of(context)!.settings,
-          onPressed: () {}
+          onPressed: () {
+            showSettingsPopup(context);
+          }
         )
       ],
     );
