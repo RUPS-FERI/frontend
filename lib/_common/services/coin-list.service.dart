@@ -24,6 +24,8 @@ abstract class CoinListService {
       CoinEntity.fromJson,
     );
 
-    return PaginationData(page: page, totalAmount: 100, items: coins);
+    final int totalAmount = coinJson['totalAmount'];
+
+    return PaginationData(page: page, totalAmount: totalAmount, items: coins);
   }
 }
